@@ -1,10 +1,12 @@
 package com.hidevlop.websocket.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChatMessage {
 
     public enum MessageType {
@@ -16,5 +18,6 @@ public class ChatMessage {
     private String sender;
     private String command;
     private String message;
+
 
 }

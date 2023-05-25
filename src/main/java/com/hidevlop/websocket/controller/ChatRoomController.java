@@ -1,8 +1,6 @@
 package com.hidevlop.websocket.controller;
 
 
-// import 생략...
-
 import com.hidevlop.websocket.model.ChatRoom;
 import com.hidevlop.websocket.repo.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
