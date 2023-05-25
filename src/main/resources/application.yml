@@ -11,19 +11,19 @@ spring:
     template-loader-path:
       classpath: /templates
 
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/auto_travel_room?serverTimezone=UTC&characterEncoding=UTF-8
-#    username: root
-#    password: root673254
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/autotravel?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: root673254
 
-#  jpa:
-#    database: mysql
-#    hibernate:
-#      ddl-auto: create
-#      use-new-id-generator-mappings: false
-#    show-sql: true
-#    defer-datasource-initialization: true
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: create
+      use-new-id-generator-mappings: false
+    show-sql: true
+    defer-datasource-initialization: true
 
   mvc:
     pathmatch:
