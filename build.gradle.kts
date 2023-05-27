@@ -31,6 +31,10 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-devtools")
     implementation ("org.springframework.boot:spring-boot-starter-data-redis")
 
+
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
     //embedded-redis
     implementation ("it.ozimov:embedded-redis:0.7.2")
     implementation ("org.webjars.bower:bootstrap:4.3.1")
@@ -40,7 +44,7 @@ dependencies {
     implementation ("org.webjars:stomp-websocket:2.3.3-1")
     implementation ("com.google.code.gson:gson:2.8.0")
 
-
+    implementation ("com.googlecode.json-simple:json-simple:1.1.1")
     implementation ("io.springfox:springfox-boot-starter:3.0.0")
     implementation ("io.springfox:springfox-swagger-ui:3.0.0")
 

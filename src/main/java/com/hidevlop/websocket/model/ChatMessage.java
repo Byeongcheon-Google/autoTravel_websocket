@@ -2,6 +2,8 @@ package com.hidevlop.websocket.model;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -10,7 +12,7 @@ import lombok.*;
 public class ChatMessage {
 
     public enum MessageType {
-        ENTER, TALK
+        ENTER, TALK, QUIT
     }
 
     private MessageType type;
@@ -18,6 +20,8 @@ public class ChatMessage {
     private String sender;
     private String command;
     private String message;
+
+
 
 
 }

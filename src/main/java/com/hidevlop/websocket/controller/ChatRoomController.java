@@ -1,6 +1,7 @@
 package com.hidevlop.websocket.controller;
 
 
+import com.hidevlop.websocket.approval.security.TokenProvider;
 import com.hidevlop.websocket.model.ChatRoom;
 import com.hidevlop.websocket.repo.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ChatRoomController {
 
     private final ChatRoomRepository chatRoomRepository;
+    private final TokenProvider tokenProvider;
 
     // 채팅 리스트 화면
     @GetMapping("/room")
@@ -28,7 +30,9 @@ public class ChatRoomController {
     @GetMapping("/rooms")
     @ResponseBody
     public List<ChatRoom> room() {
-        return chatRoomRepository.findAllRoom();
+        List<ChatRoom> chatRooms = chatRoomRepository.findAllRoom();
+        chatRooms.stream().forEach(room -> room.setUserCount(chatRoomRepository.getUserCount(room.getRoomId())));
+        return chatRooms;
     }
 
 
@@ -51,4 +55,6 @@ public class ChatRoomController {
     public ChatRoom roomInfo(@PathVariable String roomId) {
         return chatRoomRepository.findRoomById(roomId);
     }
+
+
 }
