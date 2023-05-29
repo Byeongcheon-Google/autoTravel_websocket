@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TokenProvider {
 
-    private static final long TOKEN_EXPIRE_TIME = 1; //1000 * 60 * 60 *24;
+    private static final long TOKEN_EXPIRE_TIME = 1000 * 60 * 60 *24;
     private static final String KEY_ROLES = "roles";
 
     private final MemberService memberService;
@@ -30,12 +30,7 @@ public class TokenProvider {
     @Value("{spring.jwt.secret}")
     private String secretKey;
 
-    /**
-     * 토큰 생성(발급)
-     * @param username
-     * @param roles
-     * @return
-     */
+
 
     public String generateToken(String username, List<String> roles){
         Claims claims = Jwts.claims().setSubject(username);
@@ -48,7 +43,7 @@ public class TokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiredDate)
-                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
 
     }
@@ -56,14 +51,13 @@ public class TokenProvider {
         UserDetails userDetails = memberService.loadUserByUsername(this.getUserName(jwt));
         return new UsernamePasswordAuthenticationToken(
                 userDetails,
-                null,
+                jwt,
                 userDetails.getAuthorities()
         );
     }
 
     public String getUserName(String token){
-        System.out.println(this.parseClaims(token).getSubject());
-        return this.parseClaims(token).getSubject();
+        return parseClaims(token).getSubject();
     }
 
     public boolean validateToken(String token){

@@ -44,7 +44,7 @@ dependencies {
     implementation ("org.webjars:stomp-websocket:2.3.3-1")
     implementation ("com.google.code.gson:gson:2.8.0")
 
-    implementation ("com.googlecode.json-simple:json-simple:1.1.1")
+//    implementation ("com.googlecode.json-simple:json-simple:1.1.1")
     implementation ("io.springfox:springfox-boot-starter:3.0.0")
     implementation ("io.springfox:springfox-swagger-ui:3.0.0")
 
@@ -85,6 +85,10 @@ compileKotlin.kotlinOptions {
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
     jvmTarget = "1.8"
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 

@@ -59,7 +59,7 @@
                 } else {
                     var params = new URLSearchParams();
                     params.append("name",this.room_name);
-                    axios.post('/chat/room', params)
+                    axios.post('/chat/createRoom', params)
                         .then(
                             response => {
                                 alert(response.data.name+"방 개설에 성공하였습니다.")
@@ -72,9 +72,11 @@
             },
             enterRoom: function(roomId) {
                 var sender = prompt('대화명을 입력해 주세요.');
+                var command = prompt('커맨드를 입력해 주세요');
                 if(sender != "") {
                     localStorage.setItem('wschat.sender',sender);
                     localStorage.setItem('wschat.roomId',roomId);
+                    localStorage.setItem('wschat.command',command);
                     location.href="/chat/room/enter/"+roomId;
                 }
             }

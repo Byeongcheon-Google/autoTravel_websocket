@@ -13,7 +13,8 @@ public enum ErrorCode {
     NOT_SAME_PW(HttpStatus.BAD_REQUEST.value(),"비밀번호가 일치하지 않습니다."),
     NOT_FOUND_SCHEDULE(HttpStatus.BAD_REQUEST.value(),"등록된 스케줄이 없습니다."),
     NOT_FOUND_DAYSCHEUDLE(HttpStatus.BAD_REQUEST.value(), "등록된 하루 일정이 없습니다."),
-    NOT_FOUND_SPOT(HttpStatus.BAD_REQUEST.value(),"등록된 장소가 없습니다")
+    NOT_FOUND_PLACE(HttpStatus.BAD_REQUEST.value(),"등록된 장소가 없습니다"),
+    INVALID_ENUM_VALUE(HttpStatus.BAD_REQUEST.value(), "유효한 enum값이 아닙니다.")
 
     ;
 

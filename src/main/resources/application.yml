@@ -1,7 +1,7 @@
 spring:
 
   jwt:
-    secret: bGF3cWVwZmd2bXZvbGRrbHpxd2Vsa3NkZmppa2xhc2xka2pmZ2Zhc2RmZXVjCg==
+    secret: c2Ftc3VuZ2FzdXNhcHBsZWlzdGhlYmVzdHNhbXN1bmdsZ2lzc2Fk
 
   devtools:
     livereload:

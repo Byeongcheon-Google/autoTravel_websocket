@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Slf4j
 @Service
@@ -34,9 +37,10 @@ public class MemberService implements UserDetailsService {
         if (exist) {
             throw new IllegalArgumentException();
         }
-
+        List<String> roles = new ArrayList<>();
+        roles.add("ROLE_USER");
         member.setPassword(this.passwordEncoder.encode(member.getPassword()));
-        memberRepository.save(member.toEntity());
+        memberRepository.save(member.toEntity(roles));
 
 
     }

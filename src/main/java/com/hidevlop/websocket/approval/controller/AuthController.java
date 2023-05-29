@@ -7,7 +7,11 @@ import com.hidevlop.websocket.approval.security.TokenProvider;
 import com.hidevlop.websocket.approval.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -54,15 +58,11 @@ public class AuthController {
     @PostMapping("/validation")
     @ResponseBody
     public ResponseEntity<?> validation(
-            Principal principal
     ){
-        try {
-            var result = principal.getName();
-            return ResponseEntity.ok(result);
-        } catch (RuntimeException e){
-            return ResponseEntity.status(401).body("인증이 유효하지 않습니다.");
-        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = memberService.loadUserByUsername(authentication.getName());
 
+        return ResponseEntity.ok(userDetails.getUsername());
     }
 
     @PostMapping("/duplicate")
@@ -74,6 +74,11 @@ public class AuthController {
             return ResponseEntity.badRequest().body("중복된 ID 입니다");
         }
         return ResponseEntity.ok("사용 가능한 ID 입니다.");
+    }
+
+    @GetMapping("/exception")
+    public ResponseEntity<?> exceptionTest() {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한이없습니다.");
     }
 
 }

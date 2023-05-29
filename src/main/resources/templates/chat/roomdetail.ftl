@@ -53,12 +53,14 @@
             roomId: '',
             room: {},
             sender: '',
+            command: '',
             message: '',
             messages: []
         },
         created() {
             this.roomId = localStorage.getItem('wschat.roomId');
             this.sender = localStorage.getItem('wschat.sender');
+            this.command = localStorage.getItem('wschat.command');
             this.findRoom();
         },
         methods: {
@@ -66,7 +68,7 @@
                 axios.get('/chat/room/'+this.roomId).then(response => { this.room = response.data; });
             },
             sendMessage: function() {
-                ws.send("/pub/chat/message", {}, JSON.stringify({type:'TALK', roomId:this.roomId, sender:this.sender, message:this.message}));
+                ws.send("/pub/chat/message", {}, JSON.stringify({type:'TALK', roomId:this.roomId, sender:this.sender, command:this.command, message:this.message}));
                 this.message = '';
             },
             recvMessage: function(recv) {

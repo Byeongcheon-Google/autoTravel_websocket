@@ -1,9 +1,6 @@
 package com.hidevlop.websocket.approval.security;
 
 
-import com.hidevlop.websocket.approval.exception.JwtErrorCode;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,24 +30,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        response.setCharacterEncoding("utf-8");
         String token = this.resolveTokenFromRequest(request);
 
-        try {
-            if(StringUtils.hasText(token)){
+
+        if(StringUtils.hasText(token) && this.tokenProvider.validateToken(token)){
                 //토큰 유효성 검증
                 Authentication auth = tokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
-            }
-        } catch (ExpiredJwtException e){
-            //만료 에러
-            request.setAttribute("exception", JwtErrorCode.EXPIRED_TOKEN.getCode());
-        } catch (MalformedJwtException e){
-            //변조 에러
-            request.setAttribute("exception", JwtErrorCode.WRONG_TYPE_TOKEN.getCode());
-        } catch (NullPointerException e){
-            request.setAttribute("exception", JwtErrorCode.UNKNOWN_ERROR.getCode());
         }
+
 
         filterChain.doFilter(request,response);
     }

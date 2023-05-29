@@ -26,30 +26,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .httpBasic().disable()
-
                 .csrf().disable()
-                .headers()
-                .frameOptions().sameOrigin() //SockJs HTML iframe 전송 허용
-
-                .and()
-                .formLogin()
-
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
-                .and()
-                .authorizeRequests()
-                .antMatchers("/").hasRole("USER")
-                .antMatchers("/**/signup", "/**/signin", "/**/duplicate").permitAll()
-
-                .and()
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
                 .exceptionHandling()
+//                .accessDeniedHandler(new CustomAccessDeniedHandler())
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint())
 
+                    .and()
+                .authorizeRequests()
+                .antMatchers("/", "/**").permitAll()
+                .antMatchers("/**/signup", "/**/signin", "/**/duplicate","/chat/**", "/ws-stomp/**").permitAll()
+                .antMatchers("**exception**").permitAll()
+                .anyRequest().hasRole("USER")
+
                 .and()
-                .addFilterBefore(this.authenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(this.authenticationFilter, JwtAuthenticationFilter.class);
+                .addFilterBefore(this.authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
 
     }
 
