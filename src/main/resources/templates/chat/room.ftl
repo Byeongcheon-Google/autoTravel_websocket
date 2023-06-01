@@ -42,6 +42,7 @@
         el: '#app',
         data: {
             room_name : '',
+            shceduleId : 1,
             chatrooms: [
             ]
         },
@@ -59,6 +60,7 @@
                 } else {
                     var params = new URLSearchParams();
                     params.append("name",this.room_name);
+                    params.append("scheduleId",this.scheduleId);
                     axios.post('/chat/createRoom', params)
                         .then(
                             response => {

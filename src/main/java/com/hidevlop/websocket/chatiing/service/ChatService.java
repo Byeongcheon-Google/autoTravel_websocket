@@ -15,8 +15,7 @@ public class ChatService {
 
     private final ChannelTopic channelTopic;
     private final RedisTemplate redisTemplate;
-    private final ScheduleService scheduleService;
-    private final ChatRoomRepository chatRoomRepository;
+
 
     /**
      * destination정보에서 roomId 추출

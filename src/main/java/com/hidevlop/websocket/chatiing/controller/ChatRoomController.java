@@ -55,7 +55,7 @@ public class ChatRoomController {
     public String roomDetail(
             Model model,
             @PathVariable String roomId,
-            @RequestHeader Long scheduleId
+            @PathVariable Long scheduleId
     ) {
         model.addAttribute("roomId", roomId);
 
